@@ -1,0 +1,45 @@
+﻿@model IEnumerable<InventoryManagment.Models.InventoryModel>
+@{
+    ViewData["Title"] = "Inventory";
+}
+<h2>Products</h2>
+<div class="row">
+    <button onclick="location.href='@Url.Action("AddProduct", "Inventory")'" class="btn btn-primary pull-right">Add Product</button>
+</div>
+
+@if (Model != null)
+{
+    <div class='row'>
+        <div class='table-responsive'>
+            <table class='table'>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in Model)
+                    {
+                        <tr>
+                            <td>@(p.Name)</td>
+                            <td>@(p.Price) RS</td>
+                            <td>@(p.Quantity)</td>
+                            <td>@(p.Type)</td>
+                            <td style="width:10%"><button class="btn btn-info btn-sm" onclick="location.href='@Url.Action("EditProduct", "Inventory", new { id = p.Id, name = p.Name, price = p.Price, quantity = p.Quantity, type = p.Type })'">Edit</button></td>
+                            <td style="width:10%"><button class="btn btn-danger btn-sm" onclick="location.href='@Url.Action("DeleteProduct", "Inventory", new { id = p.Id })'">Delete</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <h4> No Products Found.</h4>
+    </div>
+}
