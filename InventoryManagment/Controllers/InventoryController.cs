@@ -39,13 +39,17 @@ namespace InventoryManagment.Controllers
             return View(model);
         }
 
-        public IActionResult EditProduct(int id, string name, double price, int quantity, ProductType type)
+        public IActionResult EditProduct(int id)
         {
             if (id <= 0)
             {
                 return RedirectToAction(nameof(Error));
             }
-            return View(new InventoryModel() { Id = id, Name = name, Price = price, Quantity = quantity, Type = type });
+            else
+            {
+                var product = IInventoryRepository.GetProduct(id);
+                return View(product);
+            }
         }
 
         [HttpPost]

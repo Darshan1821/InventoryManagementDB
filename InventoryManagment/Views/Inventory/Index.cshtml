@@ -28,7 +28,7 @@
                             <td>@(p.Price) RS</td>
                             <td>@(p.Quantity)</td>
                             <td>@(p.Type)</td>
-                            <td style="width:10%"><button class="btn btn-info btn-sm" onclick="location.href='@Url.Action("EditProduct", "Inventory", new { id = p.Id, name = p.Name, price = p.Price, quantity = p.Quantity, type = p.Type })'">Edit</button></td>
+                            <td style="width:10%"><button class="btn btn-info btn-sm" onclick="location.href='@Url.Action("EditProduct", "Inventory",new { id = p.Id })'">Edit</button></td>
                             <td style="width:10%"><button class="btn btn-danger btn-sm" onclick="location.href='@Url.Action("DeleteProduct", "Inventory", new { id = p.Id })'">Delete</button></td>
                         </tr>
                     }

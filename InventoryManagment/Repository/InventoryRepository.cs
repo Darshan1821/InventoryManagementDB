@@ -33,5 +33,10 @@ namespace InventoryManagment.Repository
         {
             return database.GetAllProduct();
         }
+
+        public InventoryModel GetProduct(int id)
+        {
+            return database.GetProduct(id);
+        }
     }
 }
