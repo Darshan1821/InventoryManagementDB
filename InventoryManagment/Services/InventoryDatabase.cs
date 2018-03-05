@@ -1,6 +1,5 @@
 ﻿using InventoryManagment.Data;
 using InventoryManagment.Models;
-using InventoryManagment.Services;
 using System.Collections.Generic;
 using System.Linq;
 
