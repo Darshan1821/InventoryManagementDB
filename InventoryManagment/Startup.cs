@@ -27,7 +27,7 @@ namespace InventoryManagment
             services.AddTransient<IInventoryRepository, InventoryRepository>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IInventoryDatabase database)
         {
             if (env.IsDevelopment())
             {
@@ -38,6 +38,8 @@ namespace InventoryManagment
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            DbInitializer.Initialize(database);
 
             app.UseStaticFiles();
 

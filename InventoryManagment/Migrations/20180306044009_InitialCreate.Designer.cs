@@ -12,7 +12,7 @@ using System;
 namespace InventoryManagment.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    [Migration("20180305052633_InitialCreate")]
+    [Migration("20180306044009_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
