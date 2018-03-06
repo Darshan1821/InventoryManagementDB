@@ -1,0 +1,22 @@
+@using Microsoft.AspNetCore.Identity
+@using System.Linq
+
+@if (User.Identity.IsAuthenticated)
+{
+    <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+               <a href="">Hello @User.Identities.FirstOrDefault().Claims.FirstOrDefault(c => c.Type.Equals("name")).Value !</a>
+            </li>
+            <li>
+                <a asp-area="" asp-controller="Account" asp-action="LogOut">Sign out</a>
+            </li>
+        </ul>
+    </form>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a asp-area="" asp-controller="Account" asp-action="LogIn">Log In</a></li>
+    </ul>
+}

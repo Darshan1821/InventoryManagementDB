@@ -2,21 +2,22 @@
 using System.Linq;
 using InventoryManagment.Models;
 using InventoryManagment.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryManagment.Controllers
 {
+    [Authorize]
     public class InventoryController : Controller
     {
-
         public IInventoryRepository IInventoryRepository { get; set; }
 
         public InventoryController(IInventoryRepository inventoryRepostiory)
         {
             IInventoryRepository = inventoryRepostiory;
         }
-
+        
         public IActionResult Index()
         {
             var products = IInventoryRepository.GetAllProduct();

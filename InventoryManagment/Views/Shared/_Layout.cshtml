@@ -33,6 +33,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Inventory" asp-action="Index">Inventory</a></li>
                 </ul>
+                @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </nav>
@@ -41,6 +42,23 @@
         <hr />
         <footer>
             <p>&copy; 2018 - InventoryManagment</p>
+            @if (User.Identity.IsAuthenticated)
+            {
+                foreach(var identity in User.Identities)
+                {
+                    @foreach(var claim in identity.Claims)
+                    {
+                        if(claim.Type.Contains("email") || claim.Type.Equals("name"))
+                        {
+                            <p>@claim.Value</p>
+                        }
+                    }
+                }
+            }
+            else
+            {
+                <p>You are anonymous.</p>
+            }
         </footer>
     </div>
 

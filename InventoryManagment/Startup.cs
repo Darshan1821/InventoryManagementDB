@@ -1,8 +1,11 @@
 ﻿using InventoryManagment.Data;
 using InventoryManagment.Repository;
 using InventoryManagment.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +23,16 @@ namespace InventoryManagment
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+            })
+            .AddOpenIdConnect(options => {
+                Configuration.Bind("AzureAd", options);
+            })
+            .AddCookie();
+
             services.AddMvc();
             services.AddDbContext<InventoryDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("InventoryConnection")));
@@ -41,7 +54,11 @@ namespace InventoryManagment
 
             DbInitializer.Initialize(database);
 
+            app.UseRewriter(new RewriteOptions().AddRedirectToHttpsPermanent());
+
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
